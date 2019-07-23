@@ -6,13 +6,16 @@
 }
 
 #calculator-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
     width: 100%;
     max-width: 370px;
-    /*height: 570px;*/
     border-radius: 2%;
     border: solid #cbbc9b 15px;
     background: #444847;
-    /*padding: 4px;*/
 }
 
 #display {
@@ -32,24 +35,29 @@
 
 .row {
     display: flex;
-    /*width: 9%;*/
 }
 
 button {
-    cursor: pointer;
     width: 25%;
     font-size: 3em;
-    border-radius: 2%;
+    outline: none;
+    border-radius: 10%;
     border: solid 4px #444847;
+    cursor: pointer;
+}
+
+button:active {
+  transform: translateY(1px);
+  opacity: .9;
 }
 
 button.dbl-width {
     width: 50%;
 }
 
-button.placeholder {
+div.dbl-width {
+    width: 50%;
     background: #444847;
-    /*box-shadow: none;*/
 }
 
 .op-key,
@@ -61,7 +69,7 @@ button.placeholder {
     font-size: 1.5em;
 }
 
-.deci-key {}
+/*.deci-key {}*/
 
 .calc-key {
     background: #feba51;

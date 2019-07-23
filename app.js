@@ -6,11 +6,11 @@ keysContainer.addEventListener('click', (e) => {
     const keyClassList = e.target.classList;
     const keyValue = e.target.innerText;
 
-    if (keyClassList.contains('num-key')) { return numKey(keyValue); }
-    if (keyClassList.contains('op-key')) { return opKey(keyValue); }
-    if (keyClassList.contains('calc-key')) { return calcKey(); }
-    if (keyClassList.contains('deci-key')) { return deciKey(); }
-    if (keyClassList.contains('clear-key')) { return clearKey(); }
+    if (keyClassList.contains('num-key')) return numKey(keyValue);
+    if (keyClassList.contains('op-key')) return opKey(keyValue);
+    if (keyClassList.contains('calc-key')) return calcKey();
+    if (keyClassList.contains('deci-key')) return deciKey();
+    if (keyClassList.contains('clear-key')) return clearKey();
 })
 
 let val1 = null,
@@ -19,11 +19,11 @@ let val1 = null,
     decimal = false;
 
 function numKey(keyValue) {
-    // 0 == on load default value
+    // clear display 0 on page load
     if (display.innerText == 0 && decimal == false) {
         display.innerText = keyValue;
     }
-    // 2nd opKey click runs calcKey()
+    // clear display after opKey click
     else if (operator != null && val2 == null) {
         display.innerText = keyValue;
         val2 = 'temp';
@@ -52,12 +52,12 @@ function calcKey() {
     if (operator == 'subtract') { display.innerText = parseFloat(val1) - parseFloat(val2); }
     if (operator == 'multiply') { display.innerText = parseFloat(val1) * parseFloat(val2); }
     if (operator == 'divide') { display.innerText = parseFloat(val1) / parseFloat(val2); }
-console.log(`${val1} ${val2}`)
+    console.log(`${val1} ${val2}`)
     return val1 = display.innerText, val2 = null;
 }
 
 function deciKey() {
-    if (decimal == false) { return display.innerText += '.', decimal = true }
+    if (decimal == false) return display.innerText += '.', decimal = true;
 }
 
 function clearKey() {
