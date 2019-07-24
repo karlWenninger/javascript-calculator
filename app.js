@@ -1,7 +1,9 @@
 const display = document.querySelector('#display');
 const keysContainer = document.querySelector('#keys-container');
 
-let val1 = null,
+let
+    inpNum = null,
+    val1 = null,
     val2 = null,
     operator = null,
     currKey = null,
@@ -22,15 +24,17 @@ keysContainer.addEventListener('click', (e) => {
 function num(keyValue) {
     // clear display 0 on page load
     if (display.innerText === '0') {
-        display.innerText = keyValue;
+        inpNum = keyValue;
     }
     // clear display after op click
     else if (prevKey == 'opKey' && val2 == null) {
-        display.innerText = keyValue;
+        inpNum = keyValue;
         val2 = 'temp';
     } else {
-        display.innerText += keyValue;
+        inpNum += keyValue;
     };
+
+    return display.innerText = formatDisplayFont(inpNum);
 }
 
 function op(keyValue) {
@@ -49,12 +53,14 @@ function op(keyValue) {
 function calc() {
     val2 = display.innerText;
 
-    if (operator == 'add') { display.innerText = parseFloat(val1) + parseFloat(val2); }
-    if (operator == 'subtract') { display.innerText = parseFloat(val1) - parseFloat(val2); }
-    if (operator == 'multiply') { display.innerText = parseFloat(val1) * parseFloat(val2); }
-    if (operator == 'divide') { display.innerText = parseFloat(val1) / parseFloat(val2); }
+    let result = null;
 
-    return val2 = null, prevKey = currKey;
+    if (operator == 'add') { result = parseFloat(val1) + parseFloat(val2); }
+    if (operator == 'subtract') { result = parseFloat(val1) - parseFloat(val2); }
+    if (operator == 'multiply') { result = parseFloat(val1) * parseFloat(val2); }
+    if (operator == 'divide') { result = parseFloat(val1) / parseFloat(val2); }
+    // console.log(result.toString().length)
+    return display.innerText = formatDisplayFont(result), val2 = null, prevKey = currKey;
 }
 
 function deci() {
@@ -63,5 +69,19 @@ function deci() {
 }
 
 function clear() {
-    return display.innerText = 0, val1 = null, val2 = null, operator = null, currKey = null, prevKey = null;
+    return display.innerText = 0, val1 = null, val2 = null, operator = null, currKey = null, prevKey = null, display.style.fontSize = '3em';
+}
+
+
+function formatDisplayFont(number) {
+    let numLength = number.toString().length;
+
+    if (numLength > 8 && numLength <= 10) {
+        display.style.fontSize = '2.3em';
+    } else if (numLength > 10 && numLength <= 12) {
+        display.style.fontSize = '2em';
+    } else if (numLength > 12) {
+        return 'too big!!! (clear)';
+    }
+    return number;
 }
