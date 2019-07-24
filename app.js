@@ -1,30 +1,31 @@
 const display = document.querySelector('#display');
 const keysContainer = document.querySelector('#keys-container');
 
+let val1 = null,
+    val2 = null,
+    operator = null,
+    currKey = null,
+    prevKey = null;
+
 // get key click, run function
 keysContainer.addEventListener('click', (e) => {
     const keyClassList = e.target.classList;
     const keyValue = e.target.innerText;
 
-    if (keyClassList.contains('num-key')) return numKey(keyValue);
-    if (keyClassList.contains('op-key')) return opKey(keyValue);
-    if (keyClassList.contains('calc-key')) return calcKey();
-    if (keyClassList.contains('deci-key')) return deciKey();
-    if (keyClassList.contains('clear-key')) return clearKey();
+    if (keyClassList.contains('num-key')) return num(keyValue);
+    if (keyClassList.contains('op-key')) return currKey = 'opKey', op(keyValue);
+    if (keyClassList.contains('calc-key')) return currKey = 'calcKey', calc();
+    if (keyClassList.contains('deci-key')) return deci();
+    if (keyClassList.contains('clear-key')) return clear();
 })
 
-let val1 = null,
-    val2 = null,
-    operator = null,
-    decimal = false;
-
-function numKey(keyValue) {
+function num(keyValue) {
     // clear display 0 on page load
-    if (display.innerText == 0 && decimal == false) {
+    if (display.innerText === '0') {
         display.innerText = keyValue;
     }
-    // clear display after opKey click
-    else if (operator != null && val2 == null) {
+    // clear display after op click
+    else if (prevKey == 'opKey' && val2 == null) {
         display.innerText = keyValue;
         val2 = 'temp';
     } else {
@@ -32,9 +33,8 @@ function numKey(keyValue) {
     };
 }
 
-function opKey(keyValue) {
-    // 2nd click on opKey
-    if (operator != null) { calcKey(); }
+function op(keyValue) {
+    if (prevKey == 'opKey') { calc(); }
 
     if (keyValue == '+') { operator = 'add'; }
     if (keyValue == '-') { operator = 'subtract'; }
@@ -42,24 +42,26 @@ function opKey(keyValue) {
     if (keyValue == '÷') { operator = 'divide'; }
 
     val1 = display.innerText;
-    return val1, operator;
+
+    return val1, operator, prevKey = currKey;
 }
 
-function calcKey() {
+function calc() {
     val2 = display.innerText;
 
     if (operator == 'add') { display.innerText = parseFloat(val1) + parseFloat(val2); }
     if (operator == 'subtract') { display.innerText = parseFloat(val1) - parseFloat(val2); }
     if (operator == 'multiply') { display.innerText = parseFloat(val1) * parseFloat(val2); }
     if (operator == 'divide') { display.innerText = parseFloat(val1) / parseFloat(val2); }
-    console.log(`${val1} ${val2}`)
-    return val1 = display.innerText, val2 = null;
+
+    return val2 = null, prevKey = currKey;
 }
 
-function deciKey() {
-    if (decimal == false) return display.innerText += '.', decimal = true;
+function deci() {
+    if (display.innerText.includes('.')) return;
+    display.innerText += '.';
 }
 
-function clearKey() {
-    return display.innerText = 0, val1 = null, val2 = null, operator = null, decimal = false;
+function clear() {
+    return display.innerText = 0, val1 = null, val2 = null, operator = null, currKey = null, prevKey = null;
 }
