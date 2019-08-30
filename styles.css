@@ -1,9 +1,12 @@
+html {font-size: 16px;}
 * {
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0;
-    font-family: sans-serif;
+    font-family: monospace;
 }
+
+
 
 #calculator-container {
     position: absolute;
@@ -12,23 +15,22 @@
     left: 0;
     right: 0;
     width: 100%;
-    max-width: 414px;
+    max-width: 300px;
     border-radius: 2%;
-    border: solid #cbbc9b 10px;
-    background: #555;
+    border: solid #444 1px;
+    background: #fff;
 }
 
 #display {
-    width: 100%;
     height: 4rem;
     font-family: Orbitron;
-    font-size: 3em;
-    line-height: 4rem;
+    font-size: 2.5rem;
+    color: #20b2aa;
     text-align: right;
-    background: #6f161a;
-    color: #ff0a0a;
-    text-shadow: 2px 2px 12px #ff5959;
-    padding: .2em .2em 0 .2em;
+    line-height: 4rem;
+    background:#000;
+    padding: .2rem;
+    border-radius: 3%;
 }
 
 #keys-container {
@@ -42,44 +44,34 @@
 button {
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 25%;
     padding: 1%;
-    font-size: 3em;
+    margin: 0.5%;
+    font-size: 3rem;
+    background: none;
     color: #000;
-    background: #fff;
-    outline: none;
     border-radius: 10%;
-    border: solid 4px #555;
     cursor: pointer;
 }
 
-button.num-key, button.deci-key {
+button.num-key,
+button.deci-key {
     justify-content: flex-end;
-    font-size: 3.4em;
+    font-size: 3.5rem;
 }
 
+button.num-key, button.clear-key {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button.clear-key {
+    font-size: 1.2rem;
+}
 button:active {
     transform: translateY(1px);
-    opacity: .9;
 }
 
 button.dbl-width,
 div.dbl-width {
     width: 50%;
-}
-
-.op-key,
-.clear-key {
-    background: #d5c798;
-}
-
-.clear-key {
-    font-size: 1.5em;
-}
-
-/*.deci-key {}*/
-
-.calc-key {
-    background: #feba51;
 }
