@@ -33,7 +33,7 @@ keysContainer.addEventListener('click', (e) => {
 
 function num(keyValue) {
     inpNum = display.innerText;
-    // clear page load display 0
+     // clear page load display 0
     if (display.innerText === '0') {
         inpNum = keyValue;
     }
